@@ -31,11 +31,12 @@ else:
     lon_Ptos_Linea = len(ptos_Linea)
 
     while i < lon_Ptos_Linea:
-        p_0, p_F = ptos_Linea[-2::]
+        p_0, p_F = ptos_Linea[-2:]
         ptoMedio = (p_0 + p_F) // 2
 
         if not isin(ptoMedio, ptos_Linea).all():
             ptos_Linea.append(ptoMedio)
+            #print(ptos_Linea)
 
         lon_Ptos_Linea = len(ptos_Linea)
         i += 1
