@@ -1,24 +1,25 @@
 from tkinter import Tk, Entry
 from numpy import array, isin
 
-malla, n_Filas, n_Columnas, ancho, root = [], 5, 5, 10, Tk()
+n_Filas, ancho, root = 5, 10, Tk()
+n_Columnas = n_Filas #rectangular?
+malla = n_Columnas * [0]
 ns_Filas, ns_Columnas = range(n_Filas), range(n_Columnas)   
 
 #PROBADOR
 for n_Fila in ns_Filas:
-    fila = []
+    fila = n_Filas * [0]
     
     for n_Columna in ns_Columnas:
         celda = Entry(root, width = ancho)
         celda.grid(row = n_Fila, column = n_Columna)
-        fila.append(celda)
+        fila[n_Columna] = celda
 
-    malla.append(fila)
+    malla[n_Fila] = fila
 
 malla = array(malla[::-1]).transpose()
 
-ps = array((0, 0)), array((4, 4))
-p_0, p_F = ps
+p_0, p_F = array((0, 0)), array((4, 4))
    
 if (p_0 == p_F).all():
     p_0_X, p_0_Y = p_0
@@ -26,8 +27,7 @@ if (p_0 == p_F).all():
     malla[p_0_X][p_0_Y].insert(0, 1)
     
 else:
-    ptos_Linea = [p_0, p_F]
-    i = 0
+    ptos_Linea, i = [p_0, p_F], 0
     lon_Ptos_Linea = len(ptos_Linea)
 
     while i < lon_Ptos_Linea:
