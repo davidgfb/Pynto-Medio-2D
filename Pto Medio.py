@@ -1,10 +1,10 @@
 from tkinter import Tk, Entry
-from numpy import array, isin
+from numpy import array
 
 n_Filas, ancho, root = 5, 10, Tk()
 n_Columnas = n_Filas #rectangular?
-malla = n_Columnas * [0]
-ns_Filas, ns_Columnas = range(n_Filas), range(n_Columnas)   
+malla, ns_Filas, ns_Columnas = n_Columnas * [0], range(n_Filas),\
+                               range(n_Columnas)  
 
 #PROBADOR
 for n_Fila in ns_Filas:
@@ -18,33 +18,43 @@ for n_Fila in ns_Filas:
     malla[n_Fila] = fila
 
 malla = array(malla[::-1]).transpose()
-
-p_0, p_F = array((0, 0)), array((4, 4))
+p_0, p_F = (0, 0), (4, 4) 
    
-if (p_0 == p_F).all():
+if p_0 == p_F:
     p_0_X, p_0_Y = p_0
 
     malla[p_0_X][p_0_Y].insert(0, 1)
     
 else:
-    ptos_Linea, i = [p_0, p_F], 0
-    lon_Ptos_Linea = len(ptos_Linea)
+    ptos_Linea, pos_Elem = [p_0, p_F], 0
 
-    while i < lon_Ptos_Linea:
-        p_0, p_F = ptos_Linea[-2:]
-        ptoMedio = (p_0 + p_F) // 2
+    while pos_Elem < len(ptos_Linea) - 1:
+        p_0, p_F = ptos_Linea[pos_Elem : pos_Elem + 2]
+        ptoMedio = tuple((array(p_0) + array(p_F)) // 2)
 
-        if not isin(ptoMedio, ptos_Linea).all():
-            ptos_Linea.append(ptoMedio)
-            #print(ptos_Linea)
-
-        lon_Ptos_Linea = len(ptos_Linea)
-        i += 1
-    
+        if ptoMedio in ptos_Linea:
+            pos_Elem += 1
+            
+        else:
+            ptos_Linea.insert(pos_Elem + 1, ptoMedio)
+  
     for pto_Linea in ptos_Linea:
         pto_Linea_X, pto_Linea_Y = pto_Linea
         
         malla[pto_Linea_X][pto_Linea_Y].insert(0, 1)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 '''for n_Fila in ns_Filas:
     for n_Columna in ns_Columnas:
