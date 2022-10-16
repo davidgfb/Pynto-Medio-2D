@@ -3,8 +3,8 @@ from numpy import array
 
 n_Filas, ancho, root = 5, 10, Tk()
 n_Columnas = n_Filas #rectangular?
-malla, ns_Filas, ns_Columnas = n_Columnas * [0], range(n_Filas),\
-                               range(n_Columnas)  
+malla, ns_Filas = n_Columnas * [0], range(n_Filas)                  
+ns_Columnas = ns_Filas
 
 #PROBADOR
 for n_Fila in ns_Filas:
@@ -17,47 +17,53 @@ for n_Fila in ns_Filas:
 
     malla[n_Fila] = fila
 
-malla = array(malla[::-1]).transpose()
-p_0, p_F = (0, 0), (4, 4) 
-   
-if p_0 == p_F:
-    p_0_X, p_0_Y = p_0
+malla, p_0, p_F = array(malla[::-1]).transpose(), (0, 0), (4, 4)
 
-    malla[p_0_X][p_0_Y].insert(0, 1)
-    
-else:
-    ptos_Linea, pos_Elem = [p_0, p_F], 0
+obstaculos = [] 
+r = range(1, 4)
 
-    while pos_Elem + 1 < len(ptos_Linea):
-        p_0, p_F = ptos_Linea[pos_Elem : pos_Elem + 2]
-        ptoMedio = tuple((array(p_0) + array(p_F)) // 2)
+for n_Fila in r:
+    for n_Columna in r:
+        obstaculos.append((n_Fila, n_Columna))
+        malla[n_Fila][n_Columna].insert(0, 0)
 
+ptos_Linea, pos_Elem = [p_0, p_F], 0
+
+while pos_Elem + 1 < len(ptos_Linea):
+    p_0, p_F = ptos_Linea[pos_Elem : pos_Elem + 2]
+    ptoMedio = tuple((array(p_0) + array(p_F)) // 2)
+
+    if ptoMedio in obstaculos:
+        pos_Elem = len(ptos_Linea)
+        ptos_Linea[-1] = ptoMedio #no tiene xq ser el 1º comprueba si hay mas subinterss
+        
+    else:
         if ptoMedio in ptos_Linea:
             pos_Elem += 1
             
         else:
-            ptos_Linea.insert(pos_Elem + 1, ptoMedio)
-  
-    for pto_Linea in ptos_Linea:
-        pto_Linea_X, pto_Linea_Y = pto_Linea
+            ptos_Linea.insert(pos_Elem + 1, ptoMedio) #list.insert()
+
+for pto_Linea in ptos_Linea:
+    pto_Linea_X, pto_Linea_Y = pto_Linea
+    
+    malla[pto_Linea_X][pto_Linea_Y].insert(0, 1) #tkinter.Entry.insert()
+
+
+
+
+
+
+
+
+
+
+
         
-        malla[pto_Linea_X][pto_Linea_Y].insert(0, 1)
+        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''for n_Fila in ns_Filas:
-    for n_Columna in ns_Columnas:
+'''for n_Columna in ns_Columnas:
+    for n_Fila in ns_Filas:   
         malla[n_Fila][n_Columna].insert(0, array((n_Fila, n_Columna)))'''
 
 '''ps = array((0, 0)), array((0, 0))
