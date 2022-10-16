@@ -28,7 +28,7 @@ if p_0 == p_F:
 else:
     ptos_Linea, pos_Elem = [p_0, p_F], 0
 
-    while pos_Elem < len(ptos_Linea) - 1:
+    while pos_Elem + 1 < len(ptos_Linea):
         p_0, p_F = ptos_Linea[pos_Elem : pos_Elem + 2]
         ptoMedio = tuple((array(p_0) + array(p_F)) // 2)
 
