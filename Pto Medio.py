@@ -1,11 +1,13 @@
 from tkinter import Tk, Entry
 from numpy import array
 
-n_Filas, ancho, root = 5, 10, Tk()
+n_Filas, ancho, root, obstaculos, r, ptos_Linea, pos_Elem = 5,\
+            10, Tk(), [], range(1, 4), [(0,) * 2, (4,) * 2], 0
+p_0, p_F = ptos_Linea
 n_Columnas = n_Filas #rectangular?
-malla, ns_Filas = n_Columnas * [0], range(n_Filas)                  
+malla, ns_Filas = n_Columnas * [0], range(n_Filas)              
 ns_Columnas = ns_Filas
-
+ 
 #PROBADOR
 for n_Fila in ns_Filas:
     fila = n_Filas * [0]
@@ -17,17 +19,12 @@ for n_Fila in ns_Filas:
 
     malla[n_Fila] = fila
 
-malla, p_0, p_F = array(malla[::-1]).transpose(), (0, 0), (4, 4)
+malla = array(malla[::-1]).transpose()
 
-obstaculos = [] 
-r = range(1, 4)
-
-for n_Fila in r:
+'''for n_Fila in r:
     for n_Columna in r:
         obstaculos.append((n_Fila, n_Columna))
-        malla[n_Fila][n_Columna].insert(0, 0)
-
-ptos_Linea, pos_Elem = [p_0, p_F], 0
+        malla[n_Fila][n_Columna].insert(0, 0)'''
 
 while pos_Elem + 1 < len(ptos_Linea):
     p_0, p_F = ptos_Linea[pos_Elem : pos_Elem + 2]
@@ -35,7 +32,8 @@ while pos_Elem + 1 < len(ptos_Linea):
 
     if ptoMedio in obstaculos:
         pos_Elem = len(ptos_Linea)
-        ptos_Linea[-1] = ptoMedio #no tiene xq ser el 1º comprueba si hay mas subinterss
+        ptos_Linea[-1] = ptoMedio #no tiene xq ser el 1º comprueba
+                                  #si hay mas subinterss
         
     else:
         if ptoMedio in ptos_Linea:
