@@ -64,10 +64,6 @@ for pto_Linea in ptos_Linea:
     for n_Fila in ns_Filas:   
         malla[n_Fila][n_Columna].insert(0, array((n_Fila, n_Columna)))'''
 
-'''ps = array((0, 0)), array((0, 0))
-p_0, p_F = ps                              
-dibuja_Ptos_Medios_Calculados(ps)'''
-
 '''for n_Fila in ns_Filas:
     for n_Columna in ns_Columnas:
         malla[n_Fila][n_Columna].insert(0, 1)
