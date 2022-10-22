@@ -3,7 +3,6 @@ from numpy import array
 
 n_Filas, ancho, root, obstaculos, r, ptos_Linea, pos_Elem = 5,\
             10, Tk(), [], range(1, 4), [(0,) * 2, (4,) * 2], 0
-p_0, p_F = ptos_Linea
 n_Columnas = n_Filas #rectangular?
 malla, ns_Filas = n_Columnas * [0], range(n_Filas)              
 ns_Columnas = ns_Filas
